@@ -16,6 +16,7 @@ CRGB matrix_13[NUM_LEDS];
 CRGB matrix_14[NUM_LEDS];
 
 void setup(){
+
 	/*Init Serial*/
 	Serial.begin(115200);
 	while(!Serial){
@@ -42,40 +43,6 @@ void setup(){
 	}
 
 void loop(){
-	for(uint16_t i=0; i<=NUM_LEDS; i++){
-		matrix_1[i]=CRGB::Red;
-		matrix_2[i]=CRGB::Red;
-		matrix_3[i]=CRGB::Red;
-		matrix_4[i]=CRGB::Red;
-		matrix_5[i]=CRGB::Red;
-		matrix_6[i]=CRGB::Red;
-		matrix_7[i]=CRGB::Red;
-		matrix_8[i]=CRGB::Red;
-		matrix_9[i]=CRGB::Red;
-		matrix_10[i]=CRGB::Red;
-		matrix_11[i]=CRGB::Red;
-		matrix_12[i]=CRGB::Red;
-		matrix_13[i]=CRGB::Red;
-		matrix_14[i]=CRGB::Red;
-		FastLED.show();
-		delay(100);
-		}
-	for(uint16_t i=0; i<=NUM_LEDS; i++){
-		matrix_1[i]=CRGB::Black;
-		matrix_2[i]=CRGB::Black;
-		matrix_3[i]=CRGB::Black;
-		matrix_4[i]=CRGB::Black;
-		matrix_5[i]=CRGB::Black;
-		matrix_6[i]=CRGB::Black;
-		matrix_7[i]=CRGB::Black;
-		matrix_8[i]=CRGB::Black;
-		matrix_9[i]=CRGB::Black;
-		matrix_10[i]=CRGB::Black;
-		matrix_11[i]=CRGB::Black;
-		matrix_12[i]=CRGB::Black;
-		matrix_13[i]=CRGB::Black;
-		matrix_14[i]=CRGB::Black;
-		FastLED.show();
-		delay(100);
-		}
+	Graphics();
+	Serial_In();
 	}
