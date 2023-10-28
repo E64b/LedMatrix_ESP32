@@ -1,5 +1,7 @@
 #include "main.h"
 
+UIState uiState;
+
 CRGB matrix_1[NUM_LEDS];
 CRGB matrix_2[NUM_LEDS];
 CRGB matrix_3[NUM_LEDS];

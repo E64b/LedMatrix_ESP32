@@ -16,12 +16,17 @@
 #define DATA13_PIN 27
 #define DATA14_PIN 14
 
-#define BRIGHTNESS 175
+#define BRIGHTNESS 255
 #define LED_TYPE WS2812
 #define COLOR_ORDER GRB
 #define WIGTH 16
 #define HEIGHT 16
 #define NUM_LEDS (WIGTH * HEIGHT)
+
+typedef struct{
+	uint8_t matrix=0;
+	uint8_t picture=0;
+	} UIState;
 
 extern CRGB matrix_1[NUM_LEDS];
 extern CRGB matrix_2[NUM_LEDS];
@@ -37,6 +42,7 @@ extern CRGB matrix_11[NUM_LEDS];
 extern CRGB matrix_12[NUM_LEDS];
 extern CRGB matrix_13[NUM_LEDS];
 extern CRGB matrix_14[NUM_LEDS];
+extern UIState uiState;
 
 void Graphics();
 void Serial_In();
