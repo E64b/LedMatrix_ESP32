@@ -1,5 +1,5 @@
 #include <FastLED.h>
-//#include <SmartMatrix.h>
+//#include <LEDMatrix.h>
 
 #define DATA1_PIN 23
 #define DATA2_PIN 22
@@ -43,6 +43,8 @@ extern CRGB matrix_12[NUM_LEDS];
 extern CRGB matrix_13[NUM_LEDS];
 extern CRGB matrix_14[NUM_LEDS];
 extern UIState uiState;
+
+uint8_t *GetImage(char c);
 
 void Graphics();
 void Serial_In();

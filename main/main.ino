@@ -41,6 +41,8 @@ void setup(){
 	FastLED.addLeds<LED_TYPE, DATA13_PIN, COLOR_ORDER>(matrix_13, NUM_LEDS).setCorrection(TypicalLEDStrip);
 	FastLED.addLeds<LED_TYPE, DATA14_PIN, COLOR_ORDER>(matrix_14, NUM_LEDS).setCorrection(TypicalLEDStrip);
 
+	FastLED.setMaxPowerInVoltsAndMilliamps(5, 20000);
+
 	FastLED.setBrightness(BRIGHTNESS);
 	}
 
