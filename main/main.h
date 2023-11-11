@@ -1,6 +1,8 @@
 #include <FastLED.h>
 //#include <LEDMatrix.h>
 
+#define MATRIX_COUNT 14
+
 #define DATA1_PIN 23
 #define DATA2_PIN 22
 #define DATA3_PIN 21
@@ -28,21 +30,7 @@ typedef struct{
 	uint8_t picture=0;
 	} UIState;
 
-extern CRGB matrix_1[NUM_LEDS];
-extern CRGB matrix_2[NUM_LEDS];
-extern CRGB matrix_3[NUM_LEDS];
-extern CRGB matrix_4[NUM_LEDS];
-extern CRGB matrix_5[NUM_LEDS];
-extern CRGB matrix_6[NUM_LEDS];
-extern CRGB matrix_7[NUM_LEDS];
-extern CRGB matrix_8[NUM_LEDS];
-extern CRGB matrix_9[NUM_LEDS];
-extern CRGB matrix_10[NUM_LEDS];
-extern CRGB matrix_11[NUM_LEDS];
-extern CRGB matrix_12[NUM_LEDS];
-extern CRGB matrix_13[NUM_LEDS];
-extern CRGB matrix_14[NUM_LEDS];
-extern UIState uiState;
+extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
 
 uint8_t *GetImage(char c);
 
