@@ -101,6 +101,13 @@
 #include "./imgs/97.h"
 #include "./imgs/98.h"
 #include "./imgs/99.h"
+#include ".imgs/black.h"
+#include ".imgs/blue.h"
+#include ".imgs/dislike.h"
+#include ".imgs/green.h"
+#include ".imgs/like.h"
+#include ".imgs/red.h"
+#include ".imgs/x.h"
 #include "main.h"
 
 uint8_t *GetImage(uint8_t c) {
@@ -306,9 +313,21 @@ uint8_t *GetImage(uint8_t c) {
   case 99:
     return (uint8_t *)_99;
   case 100:
-    return (uint8_t *)_100;
+    return (uint8_t *)no;
+  case 101:
+    return (uint8_t *)x;
+  case 102:
+    return (uint8_t *)like;
+  case 103:
+    return (uint8_t *)dislike;
+  case 104:
+    return (uint8_t *)red;
+  case 105:
+    return (uint8_t *)green;
+  case 106:
+    return (uint8_t *)blue;
   case 255:
-    return (uint8_t *)_255;
+    return (uint8_t *)black;
   default:
     return NULL;
   }
