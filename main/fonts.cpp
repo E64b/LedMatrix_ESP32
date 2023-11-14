@@ -107,8 +107,8 @@
 #include "./imgs/x.h"
 #include "main.h"
 
-uint8_t *GetImage(uint8_t c) {
-  switch (c) {
+uint8_t *GetImage(uint8_t с) {
+  switch (с) {
   case 0:
     return (uint8_t *)_0;
   case 1:

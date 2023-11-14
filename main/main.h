@@ -1,4 +1,9 @@
+#pragma once
+
 #include <FastLED.h>
+#include <Arduino.h>
+#include <stdio.h>
+
 // #include <LEDMatrix.h>
 
 #define MATRIX_COUNT 14
@@ -33,8 +38,7 @@ typedef struct {
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
 extern UIState uiState;
-
-uint8_t *GetImage(uint8_t c);
+extern uint8_t *GetImage(uint8_t c);
 
 void Graphics();
 void Serial_In();
