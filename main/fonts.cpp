@@ -1,10 +1,7 @@
+#pragma once
+
 #include "./imgs/1.h"
 #include "./imgs/10.h"
-#include "./imgs/100.h"
-#include "./imgs/101.h"
-#include "./imgs/102.h"
-#include "./imgs/103.h"
-#include "./imgs/104.h"
 #include "./imgs/11.h"
 #include "./imgs/12.h"
 #include "./imgs/13.h"
@@ -101,13 +98,13 @@
 #include "./imgs/97.h"
 #include "./imgs/98.h"
 #include "./imgs/99.h"
-#include ".imgs/black.h"
-#include ".imgs/blue.h"
-#include ".imgs/dislike.h"
-#include ".imgs/green.h"
-#include ".imgs/like.h"
-#include ".imgs/red.h"
-#include ".imgs/x.h"
+#include "./imgs/black.h"
+#include "./imgs/blue.h"
+#include "./imgs/dislike.h"
+#include "./imgs/green.h"
+#include "./imgs/like.h"
+#include "./imgs/red.h"
+#include "./imgs/x.h"
 #include "main.h"
 
 uint8_t *GetImage(uint8_t c) {

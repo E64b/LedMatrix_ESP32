@@ -1,5 +1,5 @@
 #include <FastLED.h>
-//#include <LEDMatrix.h>
+// #include <LEDMatrix.h>
 
 #define MATRIX_COUNT 14
 
@@ -25,14 +25,16 @@
 #define HEIGHT 16
 #define NUM_LEDS (WIGTH * HEIGHT)
 
-typedef struct{
-	uint8_t matrix=0;
-	uint8_t picture=0;
-	} UIState;
+typedef struct {
+  uint8_t matrix = 0;
+  uint8_t picture = 0;
+  bool update = false;
+} UIState;
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
+extern UIState uiState;
 
-uint8_t *GetImage(char c);
+uint8_t *GetImage(uint8_t c);
 
 void Graphics();
 void Serial_In();
