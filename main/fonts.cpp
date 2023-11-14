@@ -1,5 +1,7 @@
 #pragma once
 
+#include "main.h"
+#include "./imgs/0.h"
 #include "./imgs/1.h"
 #include "./imgs/10.h"
 #include "./imgs/11.h"
@@ -45,6 +47,7 @@
 #include "./imgs/48.h"
 #include "./imgs/49.h"
 #include "./imgs/5.h"
+#include "./imgs/51.h"
 #include "./imgs/50.h"
 #include "./imgs/52.h"
 #include "./imgs/53.h"
@@ -105,7 +108,8 @@
 #include "./imgs/like.h"
 #include "./imgs/red.h"
 #include "./imgs/x.h"
-#include "main.h"
+#include "./imgs/no.h"
+
 
 uint8_t *GetImage(uint8_t с) {
   switch (с) {

@@ -3,6 +3,10 @@
 #include <FastLED.h>
 #include <Arduino.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <Print.h>
+#include <inttypes.h>
+#include <cstdint>
 
 // #include <LEDMatrix.h>
 
