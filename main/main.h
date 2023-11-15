@@ -2,7 +2,6 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include <Print.h>
 #include <inttypes.h>
 #include <stdio.h>
 // #include <LEDMatrix.h>
@@ -32,9 +31,9 @@
 #define MAX_A 4
 #define MAX_V 5
 
-#define WIGTH 16
+#define WIDTH 16
 #define HEIGHT 16
-#define NUM_LEDS (WIGTH * HEIGHT)
+#define NUM_LEDS (WIDTH * HEIGHT)
 #define MAX_POWER (MAX_A * 1000)
 
 typedef struct {
@@ -43,6 +42,8 @@ typedef struct {
   bool update = false;
   bool reverse = false;
   uint8_t string = 0;
+  bool input_matrix_id = true;
+  bool input_img_id = false;
 } Data;
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];

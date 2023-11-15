@@ -1,13 +1,15 @@
 #include "main.h"
 
 uint8_t getPixel(uint8_t *pChar, uint16_t index) {
-  uint8_t string = ((index + 1) / 16) % 2;
-  if (string == 0) // —читаем четные строки
-  {
-    return pChar[index + 16];
-  } else // —читаем нечетные строки
+  uint8_t num_string = index / WIDTH;
+  uint8_t parity = (1 + num_string) % 2;
+  if (parity == 0) // —читаем четные строки
   {
     return pChar[index];
+  } else // —читаем нечетные строки
+  {
+    uint16_t index_string_max = num_string * WIDTH;
+    return pChar[index_string_max - 1 - index];
   }
 }
 
