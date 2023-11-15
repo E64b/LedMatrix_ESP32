@@ -47,8 +47,8 @@
 #include "./imgs/48.h"
 #include "./imgs/49.h"
 #include "./imgs/5.h"
-#include "./imgs/51.h"
 #include "./imgs/50.h"
+#include "./imgs/51.h"
 #include "./imgs/52.h"
 #include "./imgs/53.h"
 #include "./imgs/54.h"
@@ -106,13 +106,12 @@
 #include "./imgs/dislike.h"
 #include "./imgs/green.h"
 #include "./imgs/like.h"
+#include "./imgs/no.h"
 #include "./imgs/red.h"
 #include "./imgs/x.h"
-#include "./imgs/no.h"
 
-
-uint8_t *GetImage(uint8_t с) {
-  switch (с) {
+uint8_t *GetImage(uint8_t imgCode) {
+  switch (imgCode) {
   case 0:
     return (uint8_t *)_0;
   case 1:

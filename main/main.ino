@@ -1,6 +1,6 @@
 #include "main.h"
 
-UIState uiState;
+Data data;
 
 CRGB matrix[MATRIX_COUNT][NUM_LEDS];
 
@@ -10,7 +10,7 @@ void setup() {
   Serial.begin(115200);
   while (!Serial) {
   }
-  Serial.print("Serial OK");
+  Serial.println("Serial OK");
 
   /*Init 14 channels*/
   FastLED.addLeds<LED_TYPE, DATA1_PIN, COLOR_ORDER>(matrix[0], NUM_LEDS)
@@ -42,7 +42,7 @@ void setup() {
   FastLED.addLeds<LED_TYPE, DATA14_PIN, COLOR_ORDER>(matrix[13], NUM_LEDS)
       .setCorrection(TypicalLEDStrip);
 
-  //FastLED.setMaxPowerInVoltsAndMilliamps(5, 20000);
+  FastLED.setMaxPowerInVoltsAndMilliamps(MAX_V, MAX_POWER);
 
   FastLED.setBrightness(BRIGHTNESS);
 }
@@ -50,4 +50,5 @@ void setup() {
 void loop() {
   Graphics();
   Serial_In();
+  Serial_Out();
 }
