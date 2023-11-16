@@ -4,7 +4,6 @@
 #include <FastLED.h>
 #include <inttypes.h>
 #include <stdio.h>
-// #include <LEDMatrix.h>
 
 #define MATRIX_COUNT 14
 
@@ -44,6 +43,7 @@ typedef struct {
   uint8_t string = 0;
   bool input_matrix_id = true;
   bool input_img_id = false;
+  bool received = true;
 } Data;
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
