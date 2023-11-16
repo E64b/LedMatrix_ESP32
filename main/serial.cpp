@@ -2,9 +2,11 @@
 
 void Serial_In() {
   if (data.received) {
+   // data.img_id = 0;
+    //data.matrix_id = 0;
     while (Serial.available() > 0) {
-      int VAL = (int)Serial.read();
-      if (VAL == '!') {
+     uint8_t VAL = (uint8_t)Serial.parseInt();
+      if (VAL == 200) {
         data.received = false;
         data.update = true;
         break;
@@ -13,10 +15,14 @@ void Serial_In() {
         data.matrix_id = VAL;
         data.input_matrix_id = false;
         data.input_img_id = true;
+        Serial.print("MATRIX ID ");
+        Serial.println(data.matrix_id);
       }
-      if (data.input_img_id) {
+      else if (data.input_img_id) {
         data.img_id = VAL;
         data.input_img_id = false;
+        Serial.print("IMG ID ");
+        Serial.println(data.img_id);
       }
     }
   }

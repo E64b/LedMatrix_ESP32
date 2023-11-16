@@ -18,7 +18,7 @@ void Graphics() {
     for (uint16_t i = 0; i < NUM_LEDS; i++) {
       matrix[data.matrix_id][i] = getPixel(img, i);
     }
-
+    Serial.println("SEND");
     FastLED.show();
     data.update = false;
     data.received = true;
