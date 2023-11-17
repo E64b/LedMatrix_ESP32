@@ -48,7 +48,7 @@ typedef struct {
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
 extern Data data;
-extern uint8_t *GetImage(uint8_t c);
+extern const uint32_t *GetImage(uint8_t imgCode);
 
 void Graphics();
 void Serial_In();
