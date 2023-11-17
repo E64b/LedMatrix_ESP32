@@ -8,7 +8,8 @@ uint32_t getPixel(const uint32_t *pChar, uint16_t index) {
   } else {
     uint16_t index_string_max = num_row * WIDTH;
     index %= WIDTH;
-    /* Serial.print(index);
+    /* 
+    Serial.print(index);
     Serial.print(";");
     Serial.print(index_string_max);
     Serial.print(";");
@@ -19,6 +20,7 @@ uint32_t getPixel(const uint32_t *pChar, uint16_t index) {
     return pChar[index_string_max - 1 - index];
   }
 }
+/*
 void PrintHex(uint32_t x) {
   char buff[9];
   for (uint8_t i = 0; i < 8; i++) {
@@ -29,7 +31,6 @@ void PrintHex(uint32_t x) {
   buff[8] = 0;
   Serial.print(buff);
 }
-
 void PrintImg(const uint32_t *pBuff) {
   for (uint16_t i = 0; i < NUM_LEDS; i++) {
     PrintHex(pBuff[i]);
@@ -40,21 +41,22 @@ void PrintImg(const uint32_t *pBuff) {
     }
   }
 }
-
+*/
 void Graphics() {
   if (data.update) {
     const uint32_t *img = GetImage(data.img_id);
-    Serial.println("SEND1");
-    PrintImg(img);
-    Serial.println("SEND2");
+    Serial.println("SEND");
+    //PrintImg(img);
+    //Serial.println("SEND");
     for (uint16_t i = 0; i < NUM_LEDS; i++) {
       uint32_t pixel = getPixel(img, i);
-      PrintHex(pixel);
+      /* PrintHex(pixel);
       if ((i + 1) % WIDTH == 0) {
         Serial.println();
       } else {
         Serial.print(' ');
       }
+      */
       matrix[data.matrix_id][i] = pixel;
     }
     Serial.println("-----------");
