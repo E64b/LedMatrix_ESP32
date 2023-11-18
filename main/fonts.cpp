@@ -101,14 +101,31 @@
 #include "./imgs/97.h"
 #include "./imgs/98.h"
 #include "./imgs/99.h"
+#include "./imgs/a.h"
 #include "./imgs/black.h"
 #include "./imgs/blue.h"
 #include "./imgs/dislike.h"
+#include "./imgs/down_green.h"
+#include "./imgs/down_red.h"
+#include "./imgs/e.h"
+#include "./imgs/g.h"
 #include "./imgs/green.h"
+#include "./imgs/left_green.h"
+#include "./imgs/left_red.h"
+#include "./imgs/light_blue.h"
 #include "./imgs/like.h"
+#include "./imgs/m.h"
 #include "./imgs/no.h"
+#include "./imgs/o.h"
+#include "./imgs/orange.h"
 #include "./imgs/red.h"
+#include "./imgs/right_green.h"
+#include "./imgs/right_red.h"
+#include "./imgs/up_green.h"
+#include "./imgs/up_red.h"
+#include "./imgs/v.h"
 #include "./imgs/x.h"
+#include "./imgs/yellow.h"
 
 const uint32_t *GetImage(uint8_t imgCode) {
   switch (imgCode) {
@@ -326,6 +343,34 @@ const uint32_t *GetImage(uint8_t imgCode) {
     return green;
   case 106:
     return blue;
+  case 107:
+    return a;
+  case 108:
+    return e;
+  case 109:
+    return g;
+  case 110:
+    return m;
+  case 111:
+    return o;
+  case 112:
+    return v;
+  case 113:
+    return down_red;
+  case 114:
+    return down_green;
+  case 115:
+    return up_green;
+  case 116:
+    return up_red;
+  case 117:
+    return left_green;
+  case 118:
+    return left_red;
+  case 119:
+    return right_green;
+  case 120:
+    return right_red;
   case 255:
     return black;
   default:
