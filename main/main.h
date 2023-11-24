@@ -26,9 +26,10 @@
 #define COLOR_ORDER GRB
 
 /* ==SETUP== */
-#define BRIGHTNESS 175
+#define BRIGHTNESS 127
 #define MAX_A 4
 #define MAX_V 5
+#define DEBUG false  //true or false
 
 #define WIDTH 16
 #define HEIGHT 16

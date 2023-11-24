@@ -2,10 +2,8 @@
 
 void Serial_In() {
   if (data.received) {
-   // data.img_id = 0;
-    //data.matrix_id = 0;
     while (Serial.available() > 0) {
-     uint8_t VAL = (uint8_t)Serial.parseInt();
+      uint8_t VAL = (uint8_t)Serial.parseInt();
       if (VAL == 200) {
         data.received = false;
         data.update = true;
@@ -17,8 +15,7 @@ void Serial_In() {
         data.input_img_id = true;
         Serial.print("MATRIX ID ");
         Serial.println(data.matrix_id);
-      }
-      else if (data.input_img_id) {
+      } else if (data.input_img_id) {
         data.img_id = VAL;
         data.input_img_id = false;
         Serial.print("IMG ID ");
