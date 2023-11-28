@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 #define MATRIX_COUNT 14
+#define DEVICE_ID 0x20
+#define FEATURE_ID "wall-screen"
 
 #define DATA1_PIN 23
 #define DATA2_PIN 22
@@ -26,26 +28,124 @@
 #define COLOR_ORDER GRB
 
 /* ==SETUP== */
-#define BRIGHTNESS 127
+#define BRIGHTNESS 127 // 0 ... 255
 #define MAX_A 4
 #define MAX_V 5
-#define DEBUG false  //true or false
+#define DEBUG false // true or false
 
 #define WIDTH 16
 #define HEIGHT 16
 #define NUM_LEDS (WIDTH * HEIGHT)
 #define MAX_POWER (MAX_A * 1000)
 
+#pragma pack(1, push)
+
 typedef struct {
   uint8_t matrix_id = 0;
   uint8_t img_id = 0;
   bool update = false;
-  bool reverse = false;
+  bool pong = false;
   uint8_t string = 0;
   bool input_matrix_id = true;
   bool input_img_id = false;
   bool received = true;
 } Data;
+
+struct MessageHeader {
+  uint16_t magic;
+  uint8_t target;
+  uint8_t sender;
+  uint16_t size;
+};
+
+struct MessageFooter {
+  uint8_t crc;
+};
+
+template <uint16_t size, uint16_t magic = 0x0411> struct MessageAPI {
+
+  MessageHeader header;
+  bool HasValidHeader() const { return header.magic == magic; }
+  bool HasValidSize() const { return size <= 0x7fff; }
+  virtual bool IsValid() const { return HasValidHeader() && HasValidSize(); }
+  virtual void MakeValid() {
+    header.magic = magic;
+    header.target = 0x00;
+    header.sender = DEVICE_ID;
+    header.size = size;
+  }
+  uint8_t CRC8() const {
+    uint8_t crc = 0x00;
+    uint8_t extract;
+    uint8_t sum;
+    const uint8_t *data = (const uint8_t *)this;
+    for (int i = 0; i < size - 1; i++) {
+      extract = *data;
+      for (uint8_t tempI = 8; tempI; tempI--) {
+        sum = (crc ^ extract) & 0x01;
+        crc >>= 1;
+        if (sum) {
+          crc ^= 0x8C;
+        }
+        extract >>= 1;
+      }
+      data++;
+    }
+    return crc;
+  }
+  void Send() {
+    MakeValid();
+    Serial.write((uint8_t *)this, size);
+  }
+};
+
+template <typename T, uint8_t pkgSize = sizeof(T) + sizeof(MessageHeader) +
+                                        sizeof(MessageFooter)>
+struct Message : public MessageAPI<pkgSize> {
+  T payload;
+  MessageFooter footer;
+
+  bool HasValidCrc() const { return footer.crc == MessageAPI<pkgSize>::CRC8(); }
+  bool IsValid() const {
+    return MessageAPI<pkgSize>::IsValid() && HasValidCrc();
+  }
+
+  void MakeValid() {
+    MessageAPI<pkgSize>::MakeValid();
+    footer.crc = MessageAPI<pkgSize>::CRC8();
+  }
+};
+
+struct EmptyMessage
+    : public MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)> {
+  MessageFooter footer;
+
+  bool HasValidCrc() const {
+    return footer.crc ==
+           MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::CRC8();
+  }
+  bool IsValid() const {
+    return MessageAPI<sizeof(MessageHeader) +
+                      sizeof(MessageFooter)>::IsValid() &&
+           HasValidCrc();
+  }
+
+  void MakeValid() {
+    MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::MakeValid();
+    footer.crc =
+        MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::CRC8();
+  }
+};
+
+typedef struct {
+  uint8_t matrix_id;
+  uint8_t img_id;
+} SetMatrixImage;
+
+typedef Message<SetMatrixImage> SetMatrixImageMessage;
+typedef EmptyMessage PongMessage;
+
+#pragma pack(pop)
 
 extern CRGB matrix[MATRIX_COUNT][NUM_LEDS];
 extern Data data;
