@@ -62,24 +62,20 @@ struct MessageFooter {
   uint8_t crc;
 };
 
-template <uint16_t size, uint16_t magic = 0x0411> struct MessageAPI {
+#define PROTO_MAGIC 0x0411
+struct MessageAPI {
 
   MessageHeader header;
-  bool HasValidHeader() const { return header.magic == magic; }
-  bool HasValidSize() const { return size <= 0x7fff; }
+  bool HasValidHeader() const { return header.magic == PROTO_MAGIC; }
+  bool HasValidSize() const { return header.size <= 0x7fff; }
   virtual bool IsValid() const { return HasValidHeader() && HasValidSize(); }
-  virtual void MakeValid() {
-    header.magic = magic;
-    header.target = 0x00;
-    header.sender = DEVICE_ID;
-    header.size = size;
-  }
+
   uint8_t CRC8() const {
     uint8_t crc = 0x00;
     uint8_t extract;
     uint8_t sum;
     const uint8_t *data = (const uint8_t *)this;
-    for (int i = 0; i < size - 1; i++) {
+    for (int i = 0; i < GetSize() - 1; i++) {
       extract = *data;
       for (uint8_t tempI = 8; tempI; tempI--) {
         sum = (crc ^ extract) & 0x01;
@@ -95,45 +91,50 @@ template <uint16_t size, uint16_t magic = 0x0411> struct MessageAPI {
   }
   void Send() {
     MakeValid();
-    Serial.write((uint8_t *)this, size);
+    Serial.write((uint8_t *)this, GetSize());
   }
+
+protected:
+  virtual void MakeValid() {
+    header.magic = PROTO_MAGIC;
+    header.target = 0x00;
+    header.sender = DEVICE_ID;
+    header.size = GetSize();
+  }
+  virtual uint16_t GetSize() const { return sizeof(MessageAPI) + 1; }
 };
 
-template <typename T, uint8_t pkgSize = sizeof(T) + sizeof(MessageHeader) +
-                                        sizeof(MessageFooter)>
-struct Message : public MessageAPI<pkgSize> {
+template <typename T> struct Message : public MessageAPI {
   T payload;
   MessageFooter footer;
 
-  bool HasValidCrc() const { return footer.crc == MessageAPI<pkgSize>::CRC8(); }
-  bool IsValid() const {
-    return MessageAPI<pkgSize>::IsValid() && HasValidCrc();
+  bool HasValidCrc() const { return footer.crc == MessageAPI::CRC8(); }
+  bool IsValid() const { return MessageAPI::IsValid() && HasValidCrc(); }
+
+protected:
+  uint16_t GetSize() const {
+    return sizeof(T) + sizeof(MessageHeader) + sizeof(MessageFooter);
   }
 
   void MakeValid() {
-    MessageAPI<pkgSize>::MakeValid();
-    footer.crc = MessageAPI<pkgSize>::CRC8();
+    MessageAPI::MakeValid();
+    footer.crc = MessageAPI::CRC8();
   }
 };
 
-struct EmptyMessage
-    : public MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)> {
+struct EmptyMessage : public MessageAPI {
   MessageFooter footer;
 
-  bool HasValidCrc() const {
-    return footer.crc ==
-           MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::CRC8();
-  }
-  bool IsValid() const {
-    return MessageAPI<sizeof(MessageHeader) +
-                      sizeof(MessageFooter)>::IsValid() &&
-           HasValidCrc();
-  }
+  bool HasValidCrc() const { return footer.crc == MessageAPI::CRC8(); }
+  bool IsValid() const { return MessageAPI::IsValid() && HasValidCrc(); }
 
+protected:
+  uint16_t GetSize() const {
+    return sizeof(MessageHeader) + sizeof(MessageFooter);
+  }
   void MakeValid() {
-    MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::MakeValid();
-    footer.crc =
-        MessageAPI<sizeof(MessageHeader) + sizeof(MessageFooter)>::CRC8();
+    MessageAPI::MakeValid();
+    footer.crc = MessageAPI::CRC8();
   }
 };
 
